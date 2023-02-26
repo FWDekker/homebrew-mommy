@@ -4,7 +4,11 @@ homebrew formula for [mommy](https://github.com/FWDekker/mommy)~ ❤️
 see [mommy](https://github.com/FWDekker/mommy) for installation instructions~
 
 ## development
-to update the formula to mommy version `<version>`, run `./update.sh <version>`~
+the formula can be updated to distribute mommy version `<version>` by running `./update.sh <version>`~
+
+this is automated by a github action, which should be triggered manually after each release of mommy by going to
+[the `update` action](https://github.com/FWDekker/homebrew-mommy/actions/workflows/update.yml), clicking `run workflow`,
+then clicking the other `run workflow`, and then waiting a bit and checking that the ci is happy~
 
 ## acknowledgements
-this repo is basically a direct copy of [homebrew-shellspec](https://github.com/shellspec/homebrew-shellspec)~
+this repo used [homebrew-shellspec](https://github.com/shellspec/homebrew-shellspec) as a template~

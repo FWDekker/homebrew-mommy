@@ -1,13 +1,13 @@
 class Mommy < Formula
   desc "mommy's here to support you, in any shell, on any unix system~ ❤️"
   homepage "https://github.com/FWDekker/mommy"
-  url "https://github.com/FWDekker/mommy/archive/v1.2.0.tar.gz"
-  sha256 "237d29da6d658c0f5d0079c2e500b8604615296def0e21acb2f3fff1dc483b3b"
+  url "asdf"
+  sha256 "asdf"
   license "Unlicense"
 
   def install
     ENV["PREFIX"] = "#{prefix}"
-    system("./build.sh", "brew_install")
+    system("./build.sh", "install")
   end
 
   test do

@@ -2,18 +2,23 @@ name: CI
 
 on:
   push:
+  workflow_run:
+    workflows: ["Update"]
+    types: [completed]
 
 jobs:
   test:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Brew
-        run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: Tap repository
-        run: brew tap local/mommy "$GITHUB_WORKSPACE"
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
       - name: Install mommy
         run: brew install mommy
 
