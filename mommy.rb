@@ -6,12 +6,13 @@ class Mommy < Formula
   license "Unlicense"
 
   def install
-    system "./build.sh", "brew_install", "PREFIX=#{prefix}"
+    ENV["PREFIX"] = "#{prefix}"
+    system("./build.sh", "brew_install")
   end
 
   test do
     ("#{testpath}/config.sh").write("MOMMY_COMPLIMENTS='horizon'")
 
-    assert_equal "horizon", shell_output("#{bin}/mommy -c #{testpath}/config.sh -s 0").strip
+    assert_equal("horizon", shell_output("#{bin}/mommy -c #{testpath}/config.sh -s 0").strip)
   end
 end

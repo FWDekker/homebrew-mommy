@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Brew
+        run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: Tap repository
+        run: brew tap local/mommy "$GITHUB_WORKSPACE"
+      - name: Install mommy
+        run: brew install mommy
+
+      - name: Install ShellSpec
+        run: git clone --depth=1 https://github.com/shellspec/shellspec.git "$HOME/shellspec/"
+      - name: Download mommy repo
+        run: git clone --depth=1 https://github.com/FWDekker/mommy.git "$HOME/mommy/"
+      - name: Test mommy
+        run: MOMMY_EXEC=mommy PATH="$HOME/shellspec:$PATH" "$HOME/mommy/test.sh"
