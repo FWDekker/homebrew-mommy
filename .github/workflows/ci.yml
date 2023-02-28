@@ -1,30 +1,27 @@
 name: CI
 
-on:
-  push:
-  workflow_run:
-    workflows: ["Update"]
-    types: [completed]
+on: [push]
 
 jobs:
   test:
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
+        os: [macos-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Homebrew
+      - name: Install Homebrew
         uses: Homebrew/actions/setup-homebrew@master
+      - name: Install ShellSpec
+        run: git clone --depth=1 https://github.com/shellspec/shellspec.git "$HOME/shellspec/"
+      - name: Download mommy source
+        run: git clone --depth=1 https://github.com/FWDekker/mommy.git "$HOME/mommy/"
+
       - name: Install mommy
         run: brew install mommy
 
-      - name: Install ShellSpec
-        run: git clone --depth=1 https://github.com/shellspec/shellspec.git "$HOME/shellspec/"
-      - name: Download mommy repo
-        run: git clone --depth=1 https://github.com/FWDekker/mommy.git "$HOME/mommy/"
       - name: Test mommy
         run: MOMMY_EXEC=mommy PATH="$HOME/shellspec:$PATH" "$HOME/mommy/test.sh"
