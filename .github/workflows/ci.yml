@@ -1,12 +1,12 @@
 name: CI
 
-on: [push]
+on: [ push ]
 
 jobs:
   test:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ macos-latest, ubuntu-latest ]
 
     runs-on: ${{ matrix.os }}
     steps:
