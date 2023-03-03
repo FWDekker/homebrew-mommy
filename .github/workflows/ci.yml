@@ -10,18 +10,18 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Install Homebrew
         uses: Homebrew/actions/setup-homebrew@master
       - name: Install ShellSpec
         run: git clone --depth=1 https://github.com/shellspec/shellspec.git "$HOME/shellspec/"
-      - name: Download mommy source
-        run: git clone --depth=1 https://github.com/FWDekker/mommy.git "$HOME/mommy/"
+      - name: Checkout mommy
+        run: git clone --depth=1 -b dev https://github.com/FWDekker/mommy.git "$HOME/mommy/"
 
-      - name: Install mommy
-        run: brew install mommy
-
-      - name: Test mommy
+      - name: Checkout homebrew-mommy
+        uses: actions/checkout@v3
+      - name: Install Homebrew package
+        run: brew install mommy --HEAD
+      - name: Test Homebrew package
         run: MOMMY_EXEC=mommy PATH="$HOME/shellspec:$PATH" "$HOME/mommy/test.sh"
+      - name: Uninstall Homebrew package
+        run: brew uninstall mommy
