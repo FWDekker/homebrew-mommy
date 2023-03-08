@@ -7,12 +7,7 @@ class Mommy < Formula
   license "Unlicense"
 
   def install
-    system("make", "prefix=#{prefix}/",
-                   "bin_prefix=#{prefix}/bin/",
-                   "man_prefix=#{prefix}/share/man/man1/",
-                   "fish_prefix=#{prefix}/share/fish/vendor_completions.d/",
-                   "zsh_prefix=#{prefix}/share/zsh/site-functions/",
-                   "install")
+    system("make", "prefix=#{prefix}/", "install")
   end
 
   test do

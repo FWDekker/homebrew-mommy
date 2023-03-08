@@ -12,8 +12,18 @@ jobs:
     steps:
       - name: Install dependencies for mommy
         run: |
+          echo "::group::Install ShellSpec"
           git clone --depth=1 https://github.com/shellspec/shellspec.git
           sudo make -C shellspec install
+          echo "::endgroup::"
+
+          echo "::group::Install additional shells"
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            brew install fish
+          else
+            sudo apt install fish zsh
+          fi
+          echo "::endgroup::"
       - name: Checkout mommy
         uses: actions/checkout@v3
         with:
@@ -22,6 +32,7 @@ jobs:
           ref: dev
 
       - name: Install Homebrew
+        if: runner.os == 'Linux'
         run: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Checkout homebrew-mommy
         uses: actions/checkout@v3
@@ -29,7 +40,14 @@ jobs:
           path: homebrew-mommy
       - name: Test Homebrew package
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          echo "::group::Enable Homebrew"
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
+
+          mkdir -p "$HOME/.config/fish/"; echo "set -gx fish_complete_path \$fish_complete_path $(brew --prefix)/share/fish/vendor_completions.d/" >> "$HOME/.config/fish/config.fish"
+          echo "FPATH=\"$(brew --prefix)/share/zsh/site-functions/:\$FPATH\"" >> "$HOME/.zshrc"
+          echo "::endgroup::"
 
           echo "::group::Install"
           brew tap local/mommy "$(pwd)/homebrew-mommy"
@@ -37,7 +55,7 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Test"
-          MOMMY_EXEC=mommy make -C mommy test
+          make -C mommy system=1 test
           echo "::endgroup::"
 
           echo "::group::Uninstall"
