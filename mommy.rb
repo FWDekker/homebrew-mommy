@@ -1,5 +1,5 @@
 class Mommy < Formula
-  desc "mommy's here to support you, in any shell, on any unix system~ ❤️"
+  desc "mommy's here to support you, in any shell, on any system~ ❤️"
   homepage "https://github.com/FWDekker/mommy"
   url "https://github.com/FWDekker/mommy/archive/v1.2.3.tar.gz"
   sha256 "0a4d45a4f3685c61f1fe67220fa6c7b6a39ea4086893155b2d2cdc050d1edd05"
