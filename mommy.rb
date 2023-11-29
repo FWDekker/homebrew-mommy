@@ -1,8 +1,8 @@
 class Mommy < Formula
   desc "mommy's here to support you, in any shell, on any system~ ❤️"
   homepage "https://github.com/FWDekker/mommy"
-  url "https://github.com/FWDekker/mommy/archive/v1.2.4.tar.gz"
-  sha256 "dc37a30cfb305005443361f74b76522da6a3b1d453140c8791c3330416e0afee"
+  url "https://github.com/FWDekker/mommy/archive/v1.2.5.tar.gz"
+  sha256 "9b3b705a7ba9f8bd036994bcb5e3462d2212f3a37724dfaa5f92120ae92ea263"
   head "https://github.com/FWDekker/mommy.git", branch: "dev"
   license "Unlicense"
 
