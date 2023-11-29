@@ -3,7 +3,7 @@ class Mommy < Formula
   homepage "https://github.com/FWDekker/mommy"
   url "https://github.com/FWDekker/mommy/archive/v1.2.6.tar.gz"
   sha256 "7659c4ff975af6de44f55003501eeaa7f1bba42cc7b0d96ef4abda5835a1244a"
-  head "https://github.com/FWDekker/mommy.git", branch: "dev"
+  head "https://github.com/FWDekker/mommy.git", branch: "main"
   license "Unlicense"
 
   def install
