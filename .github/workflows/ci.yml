@@ -29,7 +29,7 @@ jobs:
         with:
           repository: FWDekker/mommy
           path: mommy
-          ref: dev
+          ref: main
 
       - name: Install Homebrew
         if: runner.os == 'Linux'
